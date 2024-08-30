@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {KeycloakService} from "./services/keycloak/keycloak.service";
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,14 @@ import { Component } from '@angular/core';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'booking-ui';
+  title = 'Booking';
+
+  constructor(private keycloakService: KeycloakService) {}
+
+  login() {
+    this.keycloakService.login();
+  }
+  logout(){
+    this.keycloakService.logout()
+  }
 }

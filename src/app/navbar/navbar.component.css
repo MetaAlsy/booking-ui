@@ -1,0 +1,63 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #003366; /* Blu mare */
+  padding: 10px 20px;
+  border-radius: 10px; /* Arrotonda gli angoli della barra */
+}
+
+.navbar h1 {
+  color: #ffffff;
+  margin: 0;
+}
+
+.search-container {
+  display: flex;
+  align-items: center;
+  margin-left: 15px; /* Riduce la distanza tra la scritta e la barra di ricerca */
+}
+
+.navbar input[type="text"] {
+  border-radius: 5px;
+  border: none;
+  padding: 5px;
+  margin-right: 5px; /* Riduce la distanza tra la barra di ricerca e il pulsante */
+  outline: none;
+}
+
+.navbar button {
+  border-radius: 5px;
+  border: 1px solid white;
+  background-color: #ffffff;
+  color: #003366;
+  padding: 5px 10px;
+  cursor: pointer;
+  outline: none;
+}
+
+.navbar ul {
+  list-style: none;
+  display: flex;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar ul li {
+  margin-left: 20px;
+}
+
+.navbar ul li a {
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.navbar ul li a:hover {
+  text-decoration: underline;
+}
