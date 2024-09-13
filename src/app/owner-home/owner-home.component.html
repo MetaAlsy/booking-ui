@@ -1,1 +1,32 @@
-<p>owner-home works!</p>
+<div class="main-container">
+  <h2>Hotel</h2>
+  <app-add-hotel></app-add-hotel>
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th scope="col" class="cliccabile" sortable="id">Codice</th>
+
+      <th scope="col" class="cliccabile" sortable="name" >Nome</th>
+      <th scope="col" class="cliccabile" sortable="address" >Indirizzo</th>
+      <th scope="col" class="cliccabile" sortable="stars">Stelle</th>
+      <th scope="col" class="cliccabile" sortable="phone" >Telefono</th>
+      <th scope="col" [width]="10">Dettagli/Modifica</th>
+    </tr>
+
+    </thead>
+
+  <tbody>
+    <tr *ngFor="let hotel of hotels; trackBy: trackById">
+      <th scope="row">{{ hotel.id | number }}</th>
+      <td>{{ hotel.name }}</td>
+      <td>{{ hotel.address }}</td>
+      <td>{{ hotel.stars }}</td>
+      <td>{{ hotel.phone }}</td>
+      <td>
+        <button (click)="viewRooms(hotel.id)" class="btn btn-primary">Vedi Dettagli</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+</div>

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {KeycloakService} from "./services/keycloak/keycloak.service";
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-root',

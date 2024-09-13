@@ -1,0 +1,10 @@
+.light-red-background {
+  background-color: #ffcccc; /* Colore rosso chiaro */
+  padding: 1rem;
+  border-radius: 0.25rem;
+  position: fixed;
+  top: 0;
+  right: 0;
+  margin: 1rem;
+  z-index: 1000; /* Assicurati che sia sopra altri contenuti */
+}

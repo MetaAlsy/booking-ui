@@ -41,4 +41,8 @@ export class KeycloakService {
       this._profile.token = this.keycloak.token
     }
   }
+
+  hasRole(owner: string) {
+    return this.keycloak.hasRealmRole('owner') ||this.keycloak.hasResourceRole('owner');
+  }
 }
