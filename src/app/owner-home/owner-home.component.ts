@@ -24,6 +24,6 @@ export class OwnerHomeComponent {
   }
 
   viewRooms(id: number | undefined) {
-    this.router.navigate(['rooms']);
+    this.router.navigate(['rooms', id]);
   }
 }

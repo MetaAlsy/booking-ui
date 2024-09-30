@@ -1,20 +1,11 @@
 <h3>Rooms list</h3>
-<div
-  *ngIf="message"
-  class="alert"
-  [class.alert-danger]="level === 'error'"
-  [class.alert-success]="level === 'success'"
-  role="alert"
->
-  <p>{{message}}</p>
-</div>
+
 <hr>
 <div class="d-flex justify-content-start gap-2 flex-wrap">
   <app-room-card
-    *ngFor="let room of roomResponse.content"
+    *ngFor="let room of rooms"
     [room]="room"
-    (bookRoom)="bookRoom($event)"
-    (viewDetails)="displayRoomDetails($event)"
+
   ></app-room-card>
 </div>
 <div class="d-flex justify-content-center mt-3">
@@ -61,18 +52,15 @@
           class="page-link"
           href="javascript:void(0)"
           aria-label="Next"
-          [class.disabled]="isLastPage"
         >
           <i class="fa-solid fa-chevron-right"></i>
         </a>
       </li>
       <li class="page-item">
         <a
-          (click)="goToLastPage()"
           class="page-link"
           href="javascript:void(0)"
           aria-label="Next"
-          [class.disabled]="isLastPage"
         >
           <i class="fa-solid fa-angles-right"></i>
         </a>
