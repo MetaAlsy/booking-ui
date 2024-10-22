@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import {Component, TemplateRef} from '@angular/core';
 import {KeycloakService} from "../services/keycloak/keycloak.service";
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {SearchComponent} from "../search/search.component";
 
 @Component({
   selector: 'app-navbar',
@@ -8,7 +10,7 @@ import {KeycloakService} from "../services/keycloak/keycloak.service";
 })
 export class NavbarComponent {
   isLoggedIn = false;
-  constructor(private keycloak:KeycloakService) {
+  constructor(private keycloak:KeycloakService, private modalService:NgbModal) {
     this.isLoggedIn = this.keycloak.keycloak.authenticated || false;
   }
   login(){
@@ -19,6 +21,10 @@ export class NavbarComponent {
   }
   isOwner(): boolean {
     return this.keycloak.hasRole('owner');
+  }
+  openSearchModal()  {
+
+    this.modalService.open(SearchComponent);
   }
 
 }

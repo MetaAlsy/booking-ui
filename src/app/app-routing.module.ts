@@ -11,7 +11,7 @@ const routes: Routes = [
   {path:'',component:HomeComponent},
   {path:'admin',component:OwnerHomeComponent,canActivate:[authGuard,roleGuard],data:{role:'owner'}
   },
-  {path:'rooms/:hotelId',component:RoomListComponent,canActivate:[authGuard,roleGuard],data:{role:'owner'}
+  {path:'rooms/:hotelId',component:RoomListComponent,canActivate:[authGuard]
   }
 ];
 

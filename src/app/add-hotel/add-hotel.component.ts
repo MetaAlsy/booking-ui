@@ -10,12 +10,12 @@ import {HotelService} from "../services/hotel.service";
 })
 export class AddHotelComponent {
   hotel = {
-    name: '',          // Aggiornato
+    name: '',
     address: '',
-    phone: '',         // Aggiornato
+    phone: '',
     email: '',
-    stars: 1,          // Aggiornato
-    checkinTime: '',   // Aggiornato
+    stars: 1,
+    checkinTime: '',
     checkoutTime: ''
   };
   closeResult = '';

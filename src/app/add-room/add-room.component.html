@@ -1,0 +1,98 @@
+<!--<ng-template #roomModal let-modal>-->
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Nuova Stanza</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modalService.dismiss('Cross click')"></button>
+  </div>
+
+  <div class="modal-body">
+    <form #roomForm="ngForm" (ngSubmit)="addRoom()">
+      <!-- Numero della Stanza -->
+      <div class="mb-2">
+        <label for="roomNumber" class="col-sm-4 col-form-label">Numero stanza</label>
+        <div class="input-group input-group-sm">
+
+          <input id="roomNumber" name="roomNumber" type="number" placeholder="Numero della Stanza" [(ngModel)]="room.roomNumber" required class="form-control" />
+        </div>
+      </div>
+
+      <!-- ID Hotel -->
+      <div class="mb-2">
+        <label for="hotelID" class="col-sm-2 col-form-label">Hotel ID</label>
+        <div class="input-group input-group-sm">
+
+          <input id="hotelID" name="hotelID" type="number" placeholder="ID Hotel" [(ngModel)]="room.hotelID" required class="form-control" />
+        </div>
+      </div>
+
+      <!-- ID Tipo di Stanza -->
+      <div class="mb-2">
+        <label for="roomTypeID" class="col-sm-4 col-form-label">ID Tipo Stanza</label>
+        <div class="input-group input-group-sm">
+
+          <input id="roomTypeID" name="roomTypeID" type="number" placeholder="ID Tipo di Stanza" [(ngModel)]="room.roomTypeID" class="form-control" />
+        </div>
+      </div>
+
+      <!-- Nome del Tipo di Stanza (Select + Input combinati) -->
+      <div class="mb-2">
+        <label for="roomTypeName" class="col-sm-4 col-form-label">Nome Tipo di Stanza</label>
+        <div class="input-group input-group-sm">
+
+          <input id="roomTypeName" name="roomTypeName" placeholder="Nome Tipo di Stanza" [(ngModel)]="room.name" (input)="onRoomTypeNameInput($event)" required class="form-control" />
+          <select class="form-select form-select-sm" (change)="onRoomTypeNameInput($event)">
+            <option value="" disabled selected>Tipo Stanza</option>
+            <option *ngFor="let roomType of roomTypes" [value]="roomType.name">{{ roomType.name }}</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Descrizione del Tipo di Stanza -->
+      <div class="mb-2">
+        <label for="roomTypeDescription" class="col-sm-4 col-form-label">Descrizione Stanza</label>
+        <div class="input-group input-group-sm">
+
+          <textarea id="roomTypeDescription" name="roomTypeDescription" placeholder="Descrizione Stanza" [(ngModel)]="room.description" class="form-control"></textarea>
+        </div>
+      </div>
+
+      <!-- Stato -->
+      <div class="mb-2">
+        <label for="status" class="col-sm-2 col-form-label">Stato</label>
+        <div class="input-group input-group-sm">
+
+          <select id="status" name="status" [(ngModel)]="room.status" required class="form-select form-select-sm">
+            <option value="available">Disponibile</option>
+            <option value="occupied">Occupata</option>
+            <option value="maintenance">In Manutenzione</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Prezzo per Notte -->
+      <div class="mb-2">
+        <label for="pricePerNight" class="col-sm-4 col-form-label">Prezzo per Notte</label>
+        <div class="input-group input-group-sm">
+
+          <input id="pricePerNight" name="pricePerNight" type="number" step="0.01" placeholder="Prezzo per Notte" [(ngModel)]="room.pricePerNight" required class="form-control" />
+        </div>
+      </div>
+
+      <!-- Capacità -->
+      <div class="mb-2">
+        <label for="capacity" class="col-sm-2 col-form-label">Capacità</label>
+        <div class="input-group input-group-sm">
+
+          <input id="capacity" name="capacity" type="number" placeholder="Capacità" [(ngModel)]="room.capacity" required class="form-control" />
+        </div>
+      </div>
+
+      <!-- Footer del Modale -->
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary btn-sm">{{ roomUpdate ? 'Aggiorna' : 'Aggiungi' }}</button>
+        <button type="button" class="btn btn-secondary btn-sm" (click)="modalService.dismiss()">Annulla</button>
+      </div>
+    </form>
+  </div>
+<!--</ng-template>-->
+
+<!--<button class="btn btn-lg btn-primary" (click)="open(roomModal)">Aggiungi Stanza</button>-->

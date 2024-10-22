@@ -1,5 +1,8 @@
 <h3>Rooms list</h3>
 
+<div *ngIf="isOwner()">
+<button class="btn btn-lg btn-primary" (click)="openAddRoom()">Aggiungi Stanza</button>
+</div>
 <hr>
 <div class="d-flex justify-content-start gap-2 flex-wrap">
   <app-room-card

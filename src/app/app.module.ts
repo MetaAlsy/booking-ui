@@ -12,9 +12,11 @@ import { OwnerHomeComponent } from './owner-home/owner-home.component';
 import { AddHotelComponent } from './add-hotel/add-hotel.component';
 import { MessagesComponent } from './messages/messages.component';
 import {FormsModule} from "@angular/forms";
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {NgbDropdownModule, NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { RoomCardComponent } from './pages/room-card/room-card.component';
 import { RoomListComponent } from './pages/room-list/room-list.component';
+import { SearchComponent } from './search/search.component';
+import { AddRoomComponent } from './add-room/add-room.component';
 export function kcFactory(kcService:KeycloakService){
   return ()=>kcService.init()
 }
@@ -27,13 +29,17 @@ export function kcFactory(kcService:KeycloakService){
     AddHotelComponent,
     MessagesComponent,
     RoomCardComponent,
-    RoomListComponent
+    RoomListComponent,
+    SearchComponent,
+    AddRoomComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     NgbModule,
+    NgbDropdownModule,
+
     HttpClientModule
   ],
   providers: [
@@ -48,6 +54,7 @@ export function kcFactory(kcService:KeycloakService){
     useFactory: kcFactory,
     multi: true
   }],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+
 })
 export class AppModule { }
