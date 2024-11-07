@@ -5,34 +5,34 @@
   </div>
   <div class="modal-body">
     <form #roomForm="ngForm" (ngSubmit)="searchRooms()">
-      <div class="mb-3">
-        <label for="address"><span class="required-asterisk">*</span>Indirizzo</label>
+      <div class="mb-2">
+        <label for="address" class="col-sm-4 col-form-label"><span class="required-asterisk">*</span>Indirizzo</label>
         <div class="input-group">
-          <input id="address" name="address" placeholder="Indirizzo dell'hotel" [(ngModel)]="room.address" required />
+          <input id="address" name="address" placeholder="Indirizzo dell'hotel" [(ngModel)]="room.address" required class="form-control" />
         </div>
-        <label for="nome"><span class="required-asterisk">*</span>Nome stanza</label>
+        <label for="nome" class="col-sm-4 col-form-label"><span class="required-asterisk">*</span>Nome stanza</label>
         <div class="input-group">
-          <input id="nome" name="address" placeholder="Nome della stanza" [(ngModel)]="room.roomType.name"  />
-        </div>
-
-        <label for="startDate"><span class="required-asterisk">*</span>Data Inizio</label>
-        <div class="input-group">
-          <input id="startDate" name="startDate" type="date" [(ngModel)]="room.startDate" required />
+          <input id="nome" name="address" placeholder="Nome della stanza" [(ngModel)]="room.roomType.name"  required class="form-control"/>
         </div>
 
-        <label for="endDate"><span class="required-asterisk">*</span>Data Fine</label>
+        <label for="startDate" class="col-sm-4 col-form-label"><span class="required-asterisk">*</span>Data Inizio</label>
         <div class="input-group">
-          <input id="endDate" name="endDate" type="date" [(ngModel)]="room.endDate" required />
+          <input id="startDate" name="startDate" type="date" [(ngModel)]="room.startDate" required class="form-control" />
         </div>
 
-        <label for="price"><span class="required-asterisk">*</span>Prezzo per Notte</label>
+        <label for="endDate" class="col-sm-4 col-form-label">Data Fine</label>
         <div class="input-group">
-          <input id="price" name="price" type="number" placeholder="Prezzo per notte" [(ngModel)]="room.roomType.pricePerNight" required />
+          <input id="endDate" name="endDate" type="date" [(ngModel)]="room.endDate" required class="form-control"/>
         </div>
 
-        <label for="capacity"><span class="required-asterisk">*</span>Numero di Posti</label>
+        <label for="price" class="col-sm-4 col-form-label">Prezzo per Notte</label>
         <div class="input-group">
-          <input id="capacity" name="capacity" type="number" placeholder="Numero di posti" [(ngModel)]="room.roomType.capacity" required />
+          <input id="price" name="price" type="number" placeholder="Prezzo per notte" [(ngModel)]="room.roomType.pricePerNight" required class="form-control" />
+        </div>
+
+        <label for="capacity" class="col-sm-4 col-form-label"><span class="required-asterisk">*</span>Numero di Posti</label>
+        <div class="input-group">
+          <input id="capacity" name="capacity" type="number" placeholder="Numero di posti" [(ngModel)]="room.roomType.capacity" required class="form-control" />
         </div>
       </div>
       <div class="modal-footer">

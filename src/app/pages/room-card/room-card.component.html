@@ -7,14 +7,14 @@
   <img height="200" [src]="roomImg" class="card-img-top" alt="Room Image">
   <div class="card-body overflow-auto">
     <h5 class="card-title fs-6 text-nowrap fw-bold mb-1">
-      <i class="bi bi-house"></i>&nbsp;Room {{ room.roomType.name }}
+      <i class="bi bi-house"></i>&nbsp;Hotel: {{ room.hotelName}}
+    </h5>
+    <h5 class="card-title fs-6 text-nowrap fw-bold mb-1">
+      <i class="bi bi-house"></i>&nbsp;Room: {{ room.roomType.name }}
     </h5>
     <h5 class="card-subtitle fs-6 text-secondary mb-1">
-      <i class="bi bi-building"></i>&nbsp;{{ room.hotelId }}
+      <i class="bi bi-building"></i>&nbsp;Numero stanza: {{ room.roomNumber }}
     </h5>
-    <h6 class="card-subtitle fs-6 text-secondary mb-1">
-      <i class="fas fa-door-closed"></i>&nbsp;Type: {{ room.roomType.description }}
-    </h6>
     <h6 class="card-subtitle fs-6 text-secondary mb-1">
       <i class="fas fa-user"></i>&nbsp;Prezzo: {{ room.roomType.pricePerNight }}
     </h6>
@@ -38,6 +38,9 @@
         </button>
         <button class="btn btn-sm btn-danger" (click)="onDelete()">
           <i class="bi bi-trash"></i> Elimina
+        </button>
+        <button class="btn btn-sm btn-success" (click)="onAddData()">
+          <i class="bi bi-pencil-square"></i> Date
         </button>
       </div>
   </div>

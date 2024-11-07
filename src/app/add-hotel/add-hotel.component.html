@@ -8,39 +8,39 @@
       <div class="mb-2">
         <label for="nome" class="col-sm-2 col-form-label">Nome</label>
         <div class="input-group input-group-sm">
-          <input id="nome" name="nome" placeholder="Nome dell'hotel" [(ngModel)]="hotel.name" required />
+          <input id="nome" name="nome" placeholder="Nome dell'hotel" [(ngModel)]="hotel.name" required class="form-select form-select-sm" />
         </div>
         <div class="mb-2">
         <label for="address" class="col-sm-2 col-form-label">Indirizzo</label>
           <div class="input-group input-group-sm">
-            <input id="address" name="address" placeholder="Indirizzo dell'hotel" [(ngModel)]="hotel.address" required />
+            <input id="address" name="address" placeholder="Indirizzo dell'hotel" [(ngModel)]="hotel.address" required class="form-select form-select-sm" />
           </div>
         </div>
         <div class="mb-2">
         <label for="telefono" class="col-sm-2 col-form-label">Telefono</label>
         <div class="input-group input-group-sm">
-          <input id="telefono" name="telefono" placeholder="Telefono dell'hotel" [(ngModel)]="hotel.phone" required />
+          <input id="telefono" name="telefono" placeholder="Telefono dell'hotel" [(ngModel)]="hotel.phone" required class="form-select form-select-sm" />
         </div>
         </div>
 
         <label for="email" class="col-sm-2 col-form-label">Email</label>
         <div class="input-group input-group-sm">
-          <input id="email" name="email" type="email" placeholder="Email dell'hotel" [(ngModel)]="hotel.email" required />
+          <input id="email" name="email" type="email" placeholder="Email dell'hotel" [(ngModel)]="hotel.email" required class="form-select form-select-sm" />
         </div>
         <div class="mb-2">
         <label for="stelle" class="col-sm-2 col-form-label">Stelle</label>
         <div class="input-group input-group-sm">
-          <input id="stelle" name="stelle" type="number" placeholder="Numero di stelle (1-5)" [(ngModel)]="hotel.stars" min="1" max="5" required />
+          <input id="stelle" name="stelle" type="number" placeholder="Numero di stelle (1-5)" [(ngModel)]="hotel.stars" min="1" max="5" required class="form-select form-select-sm" />
         </div>
         </div>
         <label for="checkin" class="col-sm-6 col-form-label">Tempo di Inizio Check-in</label>
         <div class="input-group input-group-sm">
-          <input id="checkin" name="checkin" type="time" [(ngModel)]="hotel.checkinTime" required />
+          <input id="checkin" name="checkin" type="time" [(ngModel)]="hotel.checkinTime" required class="form-select form-select-sm" />
         </div>
         <div class="mb-2">
         <label for="checkout" class="col-sm-6 col-form-label">Tempo di Check-out</label>
         <div class="input-group input-group-sm">
-          <input id="checkout" name="checkout" type="time" [(ngModel)]="hotel.checkoutTime" required />
+          <input id="checkout" name="checkout" type="time" [(ngModel)]="hotel.checkoutTime" required class="form-select form-select-sm" />
         </div>
         </div>
       </div>

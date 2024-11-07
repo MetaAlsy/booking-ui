@@ -1,0 +1,41 @@
+<div class="modal-header">
+  <h4 class="modal-title" id="modal-basic-title">Seleziona Stanza e Date</h4>
+  <button type="button" class="btn-close" aria-label="Close" (click)="modalService.dismiss('Cross click')"></button>
+</div>
+
+<div class="modal-body">
+  <form #roomForm="ngForm" (ngSubmit)="addRoomWithDates()">
+    <!-- Numero della Stanza -->
+    <div>
+      <strong>Hotel: {{ hotelId }}</strong><br>
+      <small>Room Number: {{ roomNumber }} </small>
+    </div>
+
+    <!-- Data Inizio (Obbligatoria) -->
+    <div class="mb-2">
+      <label for="iniDate" class="col-form-label">Date</label>
+      <div class="input-group input-group-sm">
+        <!-- Data Inizio -->
+        <input id="iniDate" name="iniDate" type="date" [(ngModel)]="availableDateIni.aviableDate" required class="form-control" (change)="validateDates()" placeholder="Data Inizio" />
+
+        <!-- Separatore -->
+        <span class="input-group-text"> a </span>
+
+        <!-- Data Fine -->
+        <input id="finDate" name="finDate" type="date" [(ngModel)]="availableDateFin.aviableDate" class="form-control" (change)="validateDates()" placeholder="Data Fine" />
+      </div>
+    </div>
+
+    <!-- Messaggio di Errore -->
+    <div *ngIf="dataErr" class="text-danger small">
+      La data di inizio non può essere successiva alla data di fine.
+    </div>
+
+    <!-- Footer del Modale -->
+    <div class="modal-footer">
+      <button type="submit" [disabled]="dataErr" class="btn btn-primary btn-sm">Aggiungi</button>
+      <button type="button" class="btn btn-secondary btn-sm" (click)="modalService.dismiss()">Annulla</button>
+    </div>
+  </form>
+</div>
+

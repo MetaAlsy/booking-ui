@@ -1,6 +1,6 @@
 <div class="container mt-5">
   <h2>Hotel</h2>
-  <app-add-hotel></app-add-hotel>
+  <app-add-hotel (hotelAdded)="updateHotel($event)"></app-add-hotel>
   <table class="table table-striped">
     <thead>
     <tr>

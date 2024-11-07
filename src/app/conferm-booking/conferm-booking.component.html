@@ -1,0 +1,27 @@
+<div class="modal-header">
+  <h4 class="modal-title" id="modal-basic-title">Conferma Date</h4>
+  <button type="button" class="btn-close" aria-label="Close" (click)="modalService.dismiss('Cross click')"></button>
+</div>
+
+<div class="modal-body">
+  <form #roomForm="ngForm" (ngSubmit)="conferma()">
+
+    <label for="dateIni">Data Inizio</label>
+    <select class="form-control" id="dateIni" [(ngModel)]="selectedStartDate" name = "dateIni" (change)="filterEndDates()">
+      <option *ngFor="let date of availableDates" [value]="date">{{ date }}</option>
+    </select>
+
+
+    <label for="dateFin">Data Fine</label>
+    <select class="form-control" id="dateFin" [(ngModel)]="selectedEndDate"  name = "dateFin" [disabled]="!selectedStartDate">
+      <option *ngFor="let date of filteredEndDates" [value]="date">{{ date }}</option>
+    </select>
+
+
+
+<div class="modal-footer">
+  <button type="submit" class="btn btn-primary" >Conferma prenotazione</button>
+  <button type="button" class="btn btn-secondary" (click)="modalService.dismiss()">Chiudi</button>
+</div>
+  </form>
+</div>

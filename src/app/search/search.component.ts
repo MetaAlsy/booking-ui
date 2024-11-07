@@ -32,6 +32,10 @@ export class SearchComponent implements OnInit{
   }
 
   searchRooms() {
+    if (!this.room.address || !this.room.startDate) {
+      alert("Per favore, completa tutti i campi obbligatori.");
+      return;
+    }
     if (this.room && this.room.roomType) {
       const criteria: Criteria = {
         address: this.room.address,
@@ -44,6 +48,7 @@ export class SearchComponent implements OnInit{
         endDate: this.room.endDate
       };
       this.roomDataService.setRoomData(criteria);
+      console.log("dati raccolti "+criteria.address+criteria.startDate+criteria.endDate)
       //this.modalService.dismissAll();
       this.modalService.close()
       //this.modalService.dismiss()

@@ -1,9 +1,13 @@
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
-import {Router} from "@angular/router";
+import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {ActivatedRoute, Route, Router} from "@angular/router";
 import {KeycloakService} from "../../services/keycloak/keycloak.service";
 import {SearchComponent} from "../../search/search.component";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {AddRoomComponent, RoomREQ} from "../../add-room/add-room.component";
+import {AddAvailableDateComponent} from "../../add-available-date/add-available-date.component";
+import {ConfermBookingComponent} from "../../conferm-booking/conferm-booking.component";
+import {RoomService} from "../../services/room.service";
+
 
 export interface RoomType {
   id: number;
@@ -14,10 +18,13 @@ export interface RoomType {
 }
 
 export interface Room {
+  id:number
   roomNumber: number;
   hotelId: number;
   roomType: RoomType;
   status: string;
+  foto:string;
+  hotelName:string;
 }
 @Component({
   selector: 'app-room-card',
@@ -26,11 +33,14 @@ export interface Room {
 })
 export class RoomCardComponent {
   private _room :Room = <Room>{};
+  @Input() _dataIni!:string
+  @Input() _dataFin!:string
   private _roomImg: string | undefined;
+  @Output() deletedRoom: EventEmitter<any> = new EventEmitter<any>()
   get room():Room{
    return this._room;
   }
-  constructor(private keycloak:KeycloakService,private modalService:NgbModal) {
+  constructor(private keycloak:KeycloakService,private modalService:NgbModal,private router:Router,private roomService:RoomService) {
   }
   isAdmin(){
     return this.keycloak.hasRole('owner');
@@ -40,13 +50,15 @@ export class RoomCardComponent {
     this._room = value;
   }
   get roomImg(): string | undefined {
-    if (false/*this._room.img*/) {
-      return 'data:image/jpg;base64,' + this._roomImg//da fare
+    if (this._room.foto) {
+      return 'data:image/jpg;base64,' + this._room.foto//da fare
     }
-    return 'https://source.unsplash.com/user/c_v_r/1900x800';
+    return '';
   }
 
   bookRoom() {
+    const modal = this.modalService.open(ConfermBookingComponent);
+    modal.componentInstance.roomId=this._room.id
 
   }
 
@@ -69,6 +81,19 @@ export class RoomCardComponent {
   }
 
   onDelete() {
+    this.roomService.deleteRoom(this._room.id).subscribe({next:()=>{
+      console.log("Stanza eliminata")
+        this.deletedRoom.emit()
+      },
+      error:(err)=>{
+      console.log("Errore eliminazione")
+      }}
+    )
 
+  }
+
+  onAddData() {
+    console.log("room id e ==="+this._room.id)
+    this.router.navigate(['roomDates', this._room.id])
   }
 }

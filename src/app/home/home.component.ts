@@ -23,11 +23,14 @@ export class HomeComponent implements OnInit{
     this.name = profile?.firstName
     this.surname = profile?.lastName
     this.email = profile?.email
-    this.bookingService.findAllBookings(0,10).subscribe(b=>{this.bookings=b},e=>{ console.error('Errore durante il recupero delle prenotazioni:', e)})//messaggio)
+    this.bookingService.findAllBookings(0,10).subscribe((b:Booking[])=>{this.bookings=b; console.log("Dati ricevuti"+b)},e=>{ console.error('Errore durante il recupero delle prenotazioni:', e)})//messaggio)
+    console.log(this.bookings[0])
+    console.log(this.bookings)
   }
 
 
   cancelReservation(id: number) {
-    this.bookingService.cancelBooking(id)
+    console.log("Efettuo cancellazione")
+    this.bookingService.cancelBooking(id).subscribe()
   }
 }

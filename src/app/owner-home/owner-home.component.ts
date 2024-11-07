@@ -26,4 +26,9 @@ export class OwnerHomeComponent {
   viewRooms(id: number | undefined) {
     this.router.navigate(['rooms', id]);
   }
+
+  updateHotel($event: void) {
+    console.log("Aggiorno la lista dopo aggiunta HOMEOWNER")
+    this.getHotels();
+  }
 }

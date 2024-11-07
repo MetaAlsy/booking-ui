@@ -27,6 +27,7 @@
       <!-- ID Tipo di Stanza -->
       <div class="mb-2">
         <label for="roomTypeID" class="col-sm-4 col-form-label">ID Tipo Stanza</label>
+        <small *ngIf="selectedType" >*Cambiare ID se cambi campi del tipo </small>
         <div class="input-group input-group-sm">
 
           <input id="roomTypeID" name="roomTypeID" type="number" placeholder="ID Tipo di Stanza" [(ngModel)]="room.roomTypeID" class="form-control" />
@@ -83,6 +84,20 @@
         <div class="input-group input-group-sm">
 
           <input id="capacity" name="capacity" type="number" placeholder="Capacità" [(ngModel)]="room.capacity" required class="form-control" />
+        </div>
+      </div>
+      <div class="d-flex gap-2">
+        <div class="col-7">
+          <img class="rounded-1" width="100%" height="100%" [src]=" selectedPicture " alt="">
+          <div class="mt-2">
+            <input
+              (change)="onFileSelected($event)"
+              class="form-control"
+              type="file"
+              id="formFile"
+              accept="image/*"
+            >
+          </div>
         </div>
       </div>
 

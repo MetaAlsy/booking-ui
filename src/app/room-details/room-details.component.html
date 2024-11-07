@@ -1,0 +1,85 @@
+<div class="container mt-5">
+  <h2>Hotel</h2>
+  <!--<app-add-available-date (dateAdded)= "updateDates($event)" ></app-add-available-date>-->
+  <button class="btn btn-sm btn-success" (click)="onAddData()">
+    <i class="bi bi-pencil-square"></i> Aggiungi disponibilità
+  </button>
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th scope="col" class="cliccabile" sortable="id">Codice</th>
+
+      <th scope="col" class="cliccabile" sortable="data" >Data disponibilita</th>
+      <th scope="col" class="cliccabile" sortable="stato" >Stato</th>
+
+      <th scope="col" [width]="10">Dettagli/Modifica</th>
+    </tr>
+
+    </thead>
+
+    <tbody>
+    <tr *ngFor="let data of dates; ">
+      <th scope="row">{{ data.id | number }}</th>
+      <td>{{ data.aviableDate }}</td>
+      <td>{{ data.status }}</td>
+
+      <td>
+        <button (click)="changeState(data.id)" class="btn btn-primary">Cambia stato</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <div class="d-flex justify-content-center mt-3">
+    <nav aria-label="Page navigation example">
+      <ul class="pagination">
+        <li class="page-item">
+          <a
+            (click)="goToFirstPage()"
+            class="page-link"
+            href="javascript:void(0)"
+            aria-label="Previous"
+            [class.disabled]="page === 0"
+          >
+            <i class="fa-solid fa-angles-left"></i>
+          </a>
+        </li>
+        <li class="page-item">
+          <a
+            (click)="goToPreviousPage()"
+            class="page-link"
+            href="javascript:void(0)"
+            aria-label="Previous"
+            [class.disabled]="page === 0"
+          >
+            <i class="fa-solid fa-angle-left"></i>
+          </a>
+        </li>
+        <li
+          class="page-item"
+          *ngFor="let pageIndex of pages"
+        >
+          <a
+            (click)="goToPage(pageIndex)"
+            class="page-link"
+            [class.active]="page === pageIndex"
+            href="javascript:void(0)"
+          >
+            {{ pageIndex + 1 }}
+          </a>
+        </li>
+        <li class="page-item">
+          <a
+            (click)="goToNextPage()"
+            class="page-link"
+            href="javascript:void(0)"
+            aria-label="Next"
+          >
+            <i class="fa-solid fa-chevron-right"></i>
+          </a>
+        </li>
+
+      </ul>
+    </nav>
+  </div>
+
+</div>

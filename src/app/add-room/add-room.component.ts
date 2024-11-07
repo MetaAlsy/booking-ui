@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, OnInit, SimpleChanges, TemplateRef} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, TemplateRef} from '@angular/core';
 import {Room,RoomType} from "../pages/room-card/room-card.component";
 import {ModalDismissReasons, NgbActiveModal, NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {HotelService} from "../services/hotel.service";
@@ -29,6 +29,10 @@ export class AddRoomComponent implements OnInit,OnChanges{
   closeResult = '';
   roomTypes!: RoomType[];
   @Input() roomUpdate!:RoomREQ
+  selectedPicture: string | undefined;
+  selectedPictureOut: any;
+  @Output() roomAdded = new EventEmitter<any>()
+  protected selectedType: boolean = false
   constructor(private router: ActivatedRoute,protected modalService: NgbActiveModal, private roomService:RoomService, private messageService: MessagesService) {}
 
   ngOnInit() {
@@ -95,9 +99,17 @@ export class AddRoomComponent implements OnInit,OnChanges{
     this.roomService.addRoom(this.room).subscribe(
       success => {
         console.log('Stanza aggiunto con successo!');
-        setTimeout(() => {
 
-        }, 1000);
+        this.roomAdded.emit()
+        const roomId = success
+        if(this.selectedPicture){
+          this.roomService.uploadRoomPhoto(roomId,this.selectedPictureOut).subscribe({
+            next:() =>{console.log("Foca caricata")
+              this.roomAdded.emit()},
+
+            error: (e) => console.error("Errore caricamento foto",e)
+          })
+        }
       },
       error => {
         this.messageService.add('Errore durante l\'aggiunta della stanza.');
@@ -116,6 +128,7 @@ export class AddRoomComponent implements OnInit,OnChanges{
       // Aggiorna anche i dettagli del tipo di stanza selezionato
       const selectedRoomType = this.roomTypes?.find(type => type.id === this.room.roomTypeID);
       if (selectedRoomType) {
+        this.selectedType = true
         this.room.name = selectedRoomType.name;
         this.room.description = selectedRoomType.description;
         this.room.pricePerNight = selectedRoomType.pricePerNight;
@@ -124,10 +137,7 @@ export class AddRoomComponent implements OnInit,OnChanges{
     }
   }
   private resetInput(): void {
-/*      console.log('Params:', params);
-      this.hotelID = +params['hotelId'];
-      console.log('Modale aperto cazzo id del hotel preso '+this.hotelID);
-    })*/
+
 
       this.room = <RoomREQ>{
         hotelID: this.hotelID,
@@ -142,36 +152,9 @@ export class AddRoomComponent implements OnInit,OnChanges{
 
   }
 
-  /*open(content: TemplateRef<any>): void {
-    this.router.params.subscribe(params => {
-      this.hotelID = +params['hotelId'];
-    })
-    this.resetInput();  // Resetta i dati del modulo
-    this.roomService.getTypes(this.hotelID).subscribe({next:(typs:RoomType[])=>this.roomTypes=typs})
-    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' })
-      .result.then(
-      (result) => {
-        this.closeResult = `Closed with: ${result}`;
-      },
-      (reason) => {
-        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-      }
-    );
-  }*/
-  onRoomTypeChange(event: any): void {
-    const selectedRoomTypeName = event.target.value;
 
 
-    //const selectedRoomType = this.roomTypes.find(roomType => roomType.id === parseInt(selectedRoomTypeID, 10));
-    const selectedRoomType = this.roomTypes.find(roomType => roomType.name === selectedRoomTypeName);
 
-    if (selectedRoomType) {
-      this.room.name = selectedRoomType.name;
-      this.room.description = selectedRoomType.description;
-      this.room.pricePerNight = selectedRoomType.pricePerNight;
-      this.room.capacity = selectedRoomType.capacity;
-    }
-  }
   onRoomTypeNameInput(event: any): void {
     const selectedRoomTypeName = event.target.value;
 
@@ -201,9 +184,19 @@ export class AddRoomComponent implements OnInit,OnChanges{
     }
   }
 
-  selectRoomType(roomType: RoomType) {
-    this.room.roomTypeID = roomType.id; // Imposta l'ID del tipo di stanza
-    this.room.name = roomType.name;      // Imposta il nome del tipo di stanza
+
+
+  onFileSelected(event: any) {
+    this.selectedPictureOut = event.target.files[0];
+    console.log(this.selectedPictureOut);
+
+    if (this.selectedPictureOut) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.selectedPicture = reader.result as string;
+      };
+      reader.readAsDataURL(this.selectedPictureOut);
+    }
 
   }
 }

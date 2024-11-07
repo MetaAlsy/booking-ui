@@ -5,12 +5,14 @@ import {Observable} from "rxjs";
 
 export interface Booking {
   id: number;
-  hotelName: string;
-  checkInDate: string;
-  checkOutDate: string;
-  userId: number;
-  roomNumber: string;
+  checkinDate: string;
+  checkoutDate: string;
+  totalPrice: number;
   status: string;
+  hotelId: number;
+  roomId: number;
+  hotelName: string;
+  roomNumber:number
 }
 @Injectable({
   providedIn: 'root'
@@ -18,7 +20,7 @@ export interface Booking {
 export class BookingService {
   private baseUrl = 'http://localhost:8088/api/booking'
   constructor(private readonly httpClient: HttpClient) { }
-  saveBooking(booking: Booking): Observable<Booking> {
+  saveBooking(booking:Partial< Booking>): Observable<Booking> {
     return this.httpClient.post<Booking>(`${this.baseUrl}`, booking);
   }
 
@@ -37,6 +39,8 @@ export class BookingService {
 
 
   cancelBooking(booking: number): Observable<number> {
-    return this.httpClient.post<number>(`${this.baseUrl}/cancel`, booking);
+    const params = new HttpParams()
+      .set('bookingId', booking)
+    return this.httpClient.post<number>(`${this.baseUrl}/cancel/${booking}`, {});
   }
 }

@@ -8,6 +8,7 @@
   <app-room-card
     *ngFor="let room of rooms"
     [room]="room"
+    (deletedRoom)="updateList()"
 
   ></app-room-card>
 </div>
@@ -59,15 +60,7 @@
           <i class="fa-solid fa-chevron-right"></i>
         </a>
       </li>
-      <li class="page-item">
-        <a
-          class="page-link"
-          href="javascript:void(0)"
-          aria-label="Next"
-        >
-          <i class="fa-solid fa-angles-right"></i>
-        </a>
-      </li>
+
     </ul>
   </nav>
 </div>

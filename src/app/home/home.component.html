@@ -15,8 +15,9 @@
           <!-- Itera su tutte le prenotazioni usando *ngFor -->
           <li *ngFor="let reservation of bookings" class="list-group-item d-flex justify-content-between align-items-center">
             <div>
-              <strong>Hotel: {{ reservation.hotelName }}</strong><br>
-              <small>Check-in: {{ reservation.checkInDate }} - Check-out: {{ reservation.checkOutDate }}</small>
+              <strong>Hotel: {{ reservation.hotelName }} <br> Numero Stanza: {{reservation.roomId}} </strong><br>
+              <mark>Prezzo totale: {{ reservation.totalPrice }}   </mark><br>
+              <small>Check-in: {{ reservation.checkinDate }} - Check-out: {{ reservation.checkoutDate }}</small>
             </div>
             <button class="btn btn-danger btn-sm" (click)="cancelReservation(reservation.id)">
               Annulla Prenotazione

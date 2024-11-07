@@ -11,12 +11,17 @@ import { HomeComponent } from './home/home.component';
 import { OwnerHomeComponent } from './owner-home/owner-home.component';
 import { AddHotelComponent } from './add-hotel/add-hotel.component';
 import { MessagesComponent } from './messages/messages.component';
-import {FormsModule} from "@angular/forms";
-import {NgbDropdownModule, NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {NgbDropdownModule, NgbModalModule, NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { RoomCardComponent } from './pages/room-card/room-card.component';
 import { RoomListComponent } from './pages/room-list/room-list.component';
 import { SearchComponent } from './search/search.component';
 import { AddRoomComponent } from './add-room/add-room.component';
+import { AddAvailableDateComponent } from './add-available-date/add-available-date.component';
+import { RoomDetailsComponent } from './room-details/room-details.component';
+import { ConfermBookingComponent } from './conferm-booking/conferm-booking.component';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+
 export function kcFactory(kcService:KeycloakService){
   return ()=>kcService.init()
 }
@@ -28,10 +33,14 @@ export function kcFactory(kcService:KeycloakService){
     OwnerHomeComponent,
     AddHotelComponent,
     MessagesComponent,
+
     RoomCardComponent,
     RoomListComponent,
     SearchComponent,
-    AddRoomComponent
+    AddRoomComponent,
+    AddAvailableDateComponent,
+    RoomDetailsComponent,
+    ConfermBookingComponent
   ],
   imports: [
     BrowserModule,
@@ -39,8 +48,13 @@ export function kcFactory(kcService:KeycloakService){
     FormsModule,
     NgbModule,
     NgbDropdownModule,
+    NgbModalModule,
 
-    HttpClientModule
+
+
+    HttpClientModule,
+
+    ReactiveFormsModule
   ],
   providers: [
       {
@@ -53,7 +67,8 @@ export function kcFactory(kcService:KeycloakService){
     deps: [KeycloakService],
     useFactory: kcFactory,
     multi: true
-  }],
+  },
+    provideAnimationsAsync()],
   bootstrap: [AppComponent],
 
 })

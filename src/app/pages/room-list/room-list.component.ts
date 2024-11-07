@@ -16,11 +16,12 @@ import {AddRoomComponent} from "../../add-room/add-room.component";
 export class RoomListComponent implements OnInit{
   contextOwner: boolean= false
   page=0;
-  size=5;
+  size=8;
   rooms: Room[] = []
   pages: any = [];
   hotelId!: number ;
   searchCriteria: Partial<Criteria> = {}
+
   constructor(
     private roomService:RoomService,
     private router:ActivatedRoute,
@@ -37,6 +38,9 @@ export class RoomListComponent implements OnInit{
       this.findAllRooms();}
       else {
         console.log("Appro all roomsAvanzato "+params['hotelId'])
+        this.roomDataService.roomData$.subscribe((data: Partial<Criteria>) => {
+          this.searchCriteria = data;
+        })
         this.searchRooms();
       }
     })
@@ -91,6 +95,7 @@ export class RoomListComponent implements OnInit{
 
 
   private searchRooms() {
+    console.log("Invio i dati "+this.searchCriteria.address+ this.searchCriteria.startDate +this.searchCriteria.endDate)
     this.roomService.findAllRoomsAvanzato(this.searchCriteria.address,this.searchCriteria.roomType?.pricePerNight,this.searchCriteria.roomType?.name,this.searchCriteria.roomType?.capacity,
       this.searchCriteria.startDate,this.searchCriteria.endDate,this.page,this.size).subscribe({
       next: (rooms) => {
@@ -106,5 +111,12 @@ export class RoomListComponent implements OnInit{
   openAddRoom() {
     const modal =this.modalService.open(AddRoomComponent)
     modal.componentInstance.hotelID=this.hotelId
+    modal.componentInstance.roomAdded.subscribe((newRoom:any)=>{
+      this.findAllRooms()
+    })
+  }
+
+  updateList() {
+    this.findAllRooms()
   }
 }

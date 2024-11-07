@@ -19,7 +19,7 @@ export class AddHotelComponent {
     checkoutTime: ''
   };
   closeResult = '';
-  @Output() hotelAdded = new EventEmitter<void>();
+  @Output() hotelAdded = new EventEmitter<any>();
   constructor(private modalService: NgbModal, private hotelService: HotelService, private messageService: MessagesService) {}
   open(content: TemplateRef<any>): void {
     this.resetInput();  // Resetta i dati del modulo
@@ -49,14 +49,13 @@ export class AddHotelComponent {
     this.hotelService.addHotel(this.hotel).subscribe(
       success => {
         console.log('Hotel aggiunto con successo!');
-        setTimeout(() => {
-          // Emitting an event or any other logic
-        }, 1000); // Delay di 1 secondo
+        this.hotelAdded.emit() // Delay di 1 secondo
       },
       error => {
         this.messageService.add('Errore durante l\'aggiunta dell\'hotel.');
       }
     );
+
     this.modalService.dismissAll();  // Chiudi il modale
   }
 
