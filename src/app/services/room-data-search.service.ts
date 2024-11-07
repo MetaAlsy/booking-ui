@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {EventEmitter, Injectable, Output} from '@angular/core';
 import {Room} from "../pages/room-card/room-card.component";
 import {BehaviorSubject} from "rxjs";
 
@@ -7,7 +7,8 @@ import {BehaviorSubject} from "rxjs";
 })
 export class RoomDataSearchService {
   private roomSubject = new BehaviorSubject<Partial<any>>({});
-  roomData$ = this.roomSubject.asObservable();
+  roomData$ = this.roomSubject.asObservable();//$ per convenzione di observable
+
 
   constructor() { }
   setRoomData(data: Partial<any>) {

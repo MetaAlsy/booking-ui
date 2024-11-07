@@ -12,7 +12,7 @@ export const roleGuard: CanActivateFn = (route, state) => {
     keycloakService.keycloak.hasRealmRole(requiredRole);
 
   if (!hasRole) {
-    router.navigate(['access-denied']);
+    keycloakService.login()
     return false;
   }
   return true;

@@ -35,7 +35,6 @@ export class AddHotelComponent {
   }
 
   addHotel(): void {
-    // Validazione del modulo
     if (!this.hotel.name || !this.hotel.address || !this.hotel.phone || !this.hotel.email || !this.hotel.stars || !this.hotel.checkinTime || !this.hotel.checkoutTime) {
       alert('Per favore, completa tutti i campi.');
       return;
@@ -61,12 +60,12 @@ export class AddHotelComponent {
 
   private resetInput(): void {
     this.hotel = {
-      name: '',            // Cambiato da nome a name
+      name: '',
       address: '',
-      phone: '',           // Cambiato da telefono a phone
+      phone: '',
       email: '',
-      stars: 1,           // Cambiato da stelle a stars
-      checkinTime: '',    // Cambiato da checkin a checkinTime
+      stars: 1,
+      checkinTime: '',
       checkoutTime: ''
     };
   }

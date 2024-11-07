@@ -26,22 +26,20 @@ export interface RoomREQ {
 export class AddRoomComponent implements OnInit,OnChanges{
   room!:RoomREQ
   @Input()hotelID!: number;
-  closeResult = '';
   roomTypes!: RoomType[];
   @Input() roomUpdate!:RoomREQ
   selectedPicture: string | undefined;
   selectedPictureOut: any;
   @Output() roomAdded = new EventEmitter<any>()
   protected selectedType: boolean = false
+  protected rUpdate:boolean=false
   constructor(private router: ActivatedRoute,protected modalService: NgbActiveModal, private roomService:RoomService, private messageService: MessagesService) {}
 
   ngOnInit() {
     console.log('Modale aperto per modifica');
 
-    // Reset dei campi nel caso di nuovo inserimento
     this.resetInput();
 
-    // Carica i tipi di stanza dall'API
     this.roomService.getTypes(this.hotelID).subscribe({
       next: (types: RoomType[]) => {
         this.roomTypes = types;
@@ -59,14 +57,12 @@ export class AddRoomComponent implements OnInit,OnChanges{
   private populateRoomForUpdate() {
     console.log('Aggiornamento della stanza in modalità modifica:', this.roomUpdate);
 
-    // Popola la stanza con i dati ricevuti
     this.room = { ...this.roomUpdate };
+    this.rUpdate=true
 
-
-    // Cerca il tipo di stanza selezionato
     const selectedRoomType = this.roomTypes.find(type => type.id === this.room.roomTypeID);
     if (selectedRoomType) {
-      // Riempie i campi con i dettagli del tipo di stanza
+
       this.room.name = selectedRoomType.name;
       this.room.description = selectedRoomType.description;
       this.room.pricePerNight = selectedRoomType.pricePerNight;
@@ -96,25 +92,50 @@ export class AddRoomComponent implements OnInit,OnChanges{
       alert('La capacità della stanza deve essere un numero positivo.');
       return;
     }
-    this.roomService.addRoom(this.room).subscribe(
-      success => {
-        console.log('Stanza aggiunto con successo!');
-
-        this.roomAdded.emit()
-        const roomId = success
-        if(this.selectedPicture){
-          this.roomService.uploadRoomPhoto(roomId,this.selectedPictureOut).subscribe({
-            next:() =>{console.log("Foca caricata")
-              this.roomAdded.emit()},
-
-            error: (e) => console.error("Errore caricamento foto",e)
-          })
+    if(this.roomUpdate) {
+      console.log("Dati per aggiornare"+this.roomUpdate.name+"<--Nome",this.roomUpdate.hotelID,this.roomUpdate.roomNumber,this.roomUpdate.roomTypeID,this.roomUpdate.pricePerNight,this.roomUpdate.capacity,)
+      this.roomService.updateRoom(this.room).subscribe(
+        success => {
+          console.log('Stanza aggiornate con successo!');
+          this.roomAdded.emit()
+          const roomId = success
+          if (this.selectedPicture) {
+            this.roomService.uploadRoomPhoto(roomId, this.selectedPictureOut).subscribe({
+              next: () => {
+                this.roomAdded.emit()
+                console.log("Foto aggiornata")
+              },
+              error: (e) => console.error("Errore caricamento foto", e)
+            })
+          }
+        },
+        error => {
+          this.messageService.add('Errore durante l\'aggiunta della stanza.');
         }
-      },
-      error => {
-        this.messageService.add('Errore durante l\'aggiunta della stanza.');
-      }
-    );
+      );
+    }else{
+      this.roomService.addRoom(this.room).subscribe(
+        success => {
+          console.log('Stanza aggiunto con successo!');
+
+          this.roomAdded.emit()
+          const roomId = success
+          if (this.selectedPicture) {
+            this.roomService.uploadRoomPhoto(roomId, this.selectedPictureOut).subscribe({
+              next: () => {
+                console.log("Foca caricata")
+                this.roomAdded.emit()
+              },
+
+              error: (e) => console.error("Errore caricamento foto", e)
+            })
+          }
+        },
+        error => {
+          this.messageService.add('Errore durante l\'aggiunta della stanza.');
+        }
+      );
+    }
     this.modalService.close();
 
   }
@@ -122,10 +143,9 @@ export class AddRoomComponent implements OnInit,OnChanges{
     if (changes['roomUpdate'] && this.roomUpdate) {
       console.log('Aggiornamento della stanza in modalità modifica:', this.roomUpdate);
 
-      // Popola la stanza con i dati ricevuti
+
       this.room = { ...this.roomUpdate };
 
-      // Aggiorna anche i dettagli del tipo di stanza selezionato
       const selectedRoomType = this.roomTypes?.find(type => type.id === this.room.roomTypeID);
       if (selectedRoomType) {
         this.selectedType = true
@@ -158,33 +178,17 @@ export class AddRoomComponent implements OnInit,OnChanges{
   onRoomTypeNameInput(event: any): void {
     const selectedRoomTypeName = event.target.value;
 
-    // Trova il tipo di stanza selezionato in base al nome
     const selectedRoomType = this.roomTypes.find(roomType => roomType.name === selectedRoomTypeName);
 
     if (selectedRoomType) {
-      // Riempie automaticamente i campi del form con i dettagli del tipo di stanza selezionato
+      this.selectedType=true
       this.room.roomTypeID = selectedRoomType.id;
       this.room.name = selectedRoomType.name;
       this.room.description = selectedRoomType.description;
       this.room.pricePerNight = selectedRoomType.pricePerNight;
       this.room.capacity = selectedRoomType.capacity;
-    } else {
-      // Se l'utente ha inserito manualmente un nome non trovato, non riempiamo automaticamente i campi
-      this.room.roomTypeID = 0;  // ID non sarà popolato automaticamente
     }
   }
-  private getDismissReason(reason: any): string {
-    switch (reason) {
-      case ModalDismissReasons.ESC:
-        return 'by pressing ESC';
-      case ModalDismissReasons.BACKDROP_CLICK:
-        return 'by clicking on a backdrop';
-      default:
-        return `with: ${reason}`;
-    }
-  }
-
-
 
   onFileSelected(event: any) {
     this.selectedPictureOut = event.target.files[0];

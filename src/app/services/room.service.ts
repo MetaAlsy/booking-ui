@@ -110,4 +110,8 @@ export class RoomService {
   deleteRoom(roomId: number): Observable<any> {
     return this.httpClient.delete(`${this.baseUrl}/delete/${roomId}` );
   }
+
+  updateRoom(room: RoomREQ) {
+    return this.httpClient.post<number>(`${this.baseUrl}/update`,room)
+  }
 }

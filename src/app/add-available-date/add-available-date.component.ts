@@ -8,7 +8,7 @@ import {AvailableDate, RoomService} from "../services/room.service";
   styleUrl: './add-available-date.component.css'
 })
 export class AddAvailableDateComponent {
-  dataErr:boolean = false;//serve per verificare data ini<data fin
+  dataErr:boolean = false;
   availableDateIni:AvailableDate=<AvailableDate>{}
   availableDateFin:AvailableDate=<AvailableDate>{}
   @Input() hotelId!: number;
@@ -20,7 +20,6 @@ export class AddAvailableDateComponent {
   }
   validateDates() {
     if (this.availableDateIni && this.availableDateFin) {
-      // Controlla se la data di inizio è successiva alla data di fine
       this.dataErr = new Date(this.availableDateIni.aviableDate) > new Date(this.availableDateFin.aviableDate);
     } else {
       this.dataErr = false;

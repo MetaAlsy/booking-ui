@@ -64,6 +64,11 @@ export class RoomCardComponent {
 
   onEdit() {
     const modal = this.modalService.open(AddRoomComponent);
+    modal.componentInstance.roomAdded.subscribe((newRoom:any)=>{
+      setTimeout(()=>{ this.deletedRoom.emit()},1000)
+
+      console.log("Ricevo add !!!xoxo!!! 2")
+    })
     modal.componentInstance.hotelID=this._room.hotelId//prima aggiorno id per trovare tutti i tipi
     modal.componentInstance.roomUpdate = <RoomREQ>{
       hotelID: this._room.hotelId,
@@ -76,7 +81,6 @@ export class RoomCardComponent {
       status: this._room.status
     };
 
-    console.log('Dati stanza passati a roomUpdate In particolare hotelId:',this._room.hotelId)
     console.log('Dati stanza passati a roomUpdate:', modal.componentInstance.roomUpdate);
   }
 

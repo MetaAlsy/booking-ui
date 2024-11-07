@@ -41,7 +41,5 @@ export class HotelService {
     return this.httpClient.post<Hotel>(this.baseUrl, hotel);
   }
 
-  getBob(): Observable<string> {
-    return this.httpClient.get<string>("http://localhost:8088/api/bober");
-  }
+
 }

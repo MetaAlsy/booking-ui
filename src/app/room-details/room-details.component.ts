@@ -34,7 +34,10 @@ export class RoomDetailsComponent implements OnInit{
 
   }
   changeState(id: number) {
-    this.roomService.postState(id).subscribe(next =>this.messageService.add("Stato cambiato"), error => this.messageService.add("Errore cambiamento stato"))
+    this.roomService.postState(id).subscribe(next =>{
+      this.messageService.add("Stato cambiato")
+      this.getDates()
+    }, error => this.messageService.add("Errore cambiamento stato"))
   }
   goToFirstPage() {
     this.page = 0;

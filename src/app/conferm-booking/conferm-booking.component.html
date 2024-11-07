@@ -4,7 +4,7 @@
 </div>
 
 <div class="modal-body">
-  <form #roomForm="ngForm" (ngSubmit)="conferma()">
+  <form  *ngIf="isLoggedIn; else loginPrompt" #roomForm="ngForm" (ngSubmit)="conferma()">
 
     <label for="dateIni">Data Inizio</label>
     <select class="form-control" id="dateIni" [(ngModel)]="selectedStartDate" name = "dateIni" (change)="filterEndDates()">
@@ -24,4 +24,11 @@
   <button type="button" class="btn btn-secondary" (click)="modalService.dismiss()">Chiudi</button>
 </div>
   </form>
+  <ng-template #loginPrompt>
+    <div class="modal-footer">
+      <p>Effettua l'accesso per prenotare una stanza</p>
+      <button type="button" class="btn btn-primary" (click)="toLogin()">Accedi</button>
+      <button type="button" class="btn btn-secondary" (click)="modalService.dismiss()">Chiudi</button>
+    </div>
+  </ng-template>
 </div>

@@ -12,7 +12,8 @@ export interface Booking {
   hotelId: number;
   roomId: number;
   hotelName: string;
-  roomNumber:number
+  roomNumber:number;
+  roomName:string;
 }
 @Injectable({
   providedIn: 'root'
@@ -32,10 +33,6 @@ export class BookingService {
     return this.httpClient.get<Booking[]>(`${this.baseUrl}`, { params });
   }
 
-
-  findBookingById(bookingId: number): Observable<Booking> {
-    return this.httpClient.get<Booking>(`${this.baseUrl}/${bookingId}`);
-  }
 
 
   cancelBooking(booking: number): Observable<number> {

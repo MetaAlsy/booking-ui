@@ -40,26 +40,12 @@ export class RoomListComponent implements OnInit{
         console.log("Appro all roomsAvanzato "+params['hotelId'])
         this.roomDataService.roomData$.subscribe((data: Partial<Criteria>) => {
           this.searchCriteria = data;
+          console.log("ricevo paramentri di ricerca "+params['hotelId'])
+          this.searchRooms();
         })
-        this.searchRooms();
       }
     })
-      /*this.contextOwner=this.keycloak.hasRole("owner")
-      if(this.contextOwner){
-      this.router.params.subscribe(params => {
-        this.hotelId = +params['hotelId'];
 
-        console.log("Appro all rooms"+params['hotelId'])
-        this.findAllRooms();
-      })}
-      else{
-      this.roomDataService.roomData$.subscribe(data => {
-        if (data) {
-          this.searchCriteria = data;
-          console.log("Appro ricerca avanzata")
-          this.searchRooms();
-        }
-      });}*/
   }
 
   private findAllRooms() {
@@ -109,6 +95,7 @@ export class RoomListComponent implements OnInit{
   }
 
   openAddRoom() {
+    console.log("Aperto peraggiunta o / modifica)")
     const modal =this.modalService.open(AddRoomComponent)
     modal.componentInstance.hotelID=this.hotelId
     modal.componentInstance.roomAdded.subscribe((newRoom:any)=>{
@@ -117,6 +104,7 @@ export class RoomListComponent implements OnInit{
   }
 
   updateList() {
+    console.log("XOXO 3")
     this.findAllRooms()
   }
 }

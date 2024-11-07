@@ -34,7 +34,7 @@ export class KeycloakService {
   async init(){
 
     const authenticated = await this.keycloak.init({
-      onLoad: 'check-sso'//'login-required'
+      onLoad: 'check-sso'
     });
     if(authenticated){
       this._profile = (await this.keycloak?.loadUserProfile()) as UserProfile;
@@ -43,6 +43,6 @@ export class KeycloakService {
   }
 
   hasRole(owner: string) {
-    return this.keycloak.hasRealmRole('owner') ||this.keycloak.hasResourceRole('owner');
+    return this.keycloak.hasRealmRole(owner) ||this.keycloak.hasResourceRole(owner);
   }
 }

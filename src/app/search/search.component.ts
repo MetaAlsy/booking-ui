@@ -1,4 +1,4 @@
-import {Component, OnInit, TemplateRef} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output, TemplateRef} from '@angular/core';
 import {Room, RoomType} from "../pages/room-card/room-card.component";
 import {NgbActiveModal, NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {RoomDataSearchService} from "../services/room-data-search.service";
@@ -49,12 +49,9 @@ export class SearchComponent implements OnInit{
       };
       this.roomDataService.setRoomData(criteria);
       console.log("dati raccolti "+criteria.address+criteria.startDate+criteria.endDate)
-      //this.modalService.dismissAll();
-      this.modalService.close()
-      //this.modalService.dismiss()
-      //this.router.navigate(['rooms/'])
       console.log("Appro room-list")
       this.router.navigate(['rooms', 0]);
+      this.modalService.close()
     }
   }
 
